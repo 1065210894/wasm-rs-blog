@@ -15,5 +15,5 @@ extern {
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Hello, wasm-rs-blog-web!");
+    alert("This is deishy blog by webassembly!");
 }
