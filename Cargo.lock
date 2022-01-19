@@ -402,7 +402,9 @@ checksum = "0237232789cf037d5480773fe568aac745bfe2afbc11a863e97901780a6b47cc"
 name = "wasm-rs-blog-web"
 version = "0.1.0"
 dependencies = [
+ "js-sys",
  "wasm-bindgen",
+ "web-sys",
  "yew",
  "yew-functional",
  "yew-router",

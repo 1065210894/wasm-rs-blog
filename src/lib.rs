@@ -1,3 +1,5 @@
+#![feature(extern_types)]
+
 mod view;
 use yew::prelude::*;
 use wasm_bindgen::prelude::*;
