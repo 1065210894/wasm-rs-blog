@@ -1,5 +1,4 @@
 use yew::prelude::*;
-use wasm_bindgen::prelude::*;
 
 #[derive(Clone, PartialEq, Properties, std::default::Default)]
 pub struct Props {}
@@ -15,7 +14,7 @@ impl Component for NavigationContent {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(mut props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         return Self { link, props };
     }
 

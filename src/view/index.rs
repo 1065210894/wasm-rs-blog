@@ -51,11 +51,9 @@ impl Component for Index {
 
         let style: String = height_str.to_string() + &height + style_end +
             width_str + &width + style_end;
-        //用于收起侧标栏，计算向左隐藏多少。和css的配置保持一致
-        let navigation_width = (self.props.width as f64 * 0.15) * 0.84;
         html! {
                 <div class="index" style={style}>
-                    <Navigation is_open={true} navigation_style={"".to_string()} navigation_width={navigation_width.to_string()} />
+                    <Navigation is_open={true} navigation_style={"".to_string()} />
                 </div>
         }
     }
