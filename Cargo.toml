@@ -13,6 +13,13 @@ yew = { git = "https://github.com/yewstack/yew", rev = "f27e268" }
 yew-router = { git = "https://github.com/yewstack/yew", rev = "f27e268" }
 wasm-bindgen = "0.2.78"
 
+[dependencies.serde]
+version = "1.0.133"
+features = ["serde_derive"]
+
+[dependencies.serde_json]
+version = "1.0.74"
+
 [dependencies.js-sys]
 version = "0.3.55"
 

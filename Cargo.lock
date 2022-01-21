@@ -403,6 +403,8 @@ name = "wasm-rs-blog-web"
 version = "0.1.0"
 dependencies = [
  "js-sys",
+ "serde",
+ "serde_json",
  "wasm-bindgen",
  "web-sys",
  "yew",
