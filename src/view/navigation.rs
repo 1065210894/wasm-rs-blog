@@ -64,11 +64,13 @@ impl Component for Navigation {
                 </span>
                 <span class="navigation-is-open-span" >
                     <button class="navigation-is-open-btn" onclick={is_open_click} >
-                            {if self.props.is_open {
+                        {
+                            if self.props.is_open {
                                 "关闭"
                             } else {
                                 "开启"
-                            }}
+                            }
+                        }
                     </button>
                 </span>
             </div>

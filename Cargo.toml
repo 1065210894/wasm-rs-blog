@@ -31,5 +31,6 @@ features = [
     "StyleSheetList",
     "console",
     "Document",
-    "Window"
+    "Window",
+    "Storage",
 ]

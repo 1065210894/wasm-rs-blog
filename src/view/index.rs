@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use wasm_bindgen::prelude::*;
 use crate::view::navigation::Navigation;
+use crate::util::js_object;
 
 #[wasm_bindgen]
 extern {
@@ -25,8 +26,7 @@ impl Component for Index {
     type Properties = Props;
 
     fn create(mut props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        let window:web_sys::Window = web_sys::window().expect("no global `window` exists");
-        let document:web_sys::Document = window.document().expect("should have a document on window");
+        let document:web_sys::Document = js_object::get_js_window().document().expect("should have a document on window");
         let element:web_sys::Element = document.document_element().expect("document should have a body");
         props.height = element.client_height();
         props.width = element.client_width();
@@ -52,9 +52,9 @@ impl Component for Index {
         let style: String = height_str.to_string() + &height + style_end +
             width_str + &width + style_end;
         html! {
-                <div class="index" style={style}>
-                    <Navigation is_open={true} navigation_style={"".to_string()} />
-                </div>
+            <div class="index" style={style}>
+                <Navigation is_open={true} navigation_style={"".to_string()} />
+            </div>
         }
     }
 }
