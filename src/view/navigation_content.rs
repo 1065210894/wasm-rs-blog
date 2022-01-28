@@ -13,13 +13,14 @@ pub struct NavigationContent {
     navigation_content: Vec<HtmlByTree>,
 }
 
-/// 获取一级目录骨架（闭包函数）
-/// ```
-fn get_html_tree() -> fn(&Vec<HtmlByTree>) -> Html {
-    //主要目录树
-    move |html_tree_vec: &Vec<HtmlByTree>| -> Html {
-        html_tree_vec.into_iter().map(|content| {
-            let child_li_a = get_child_li_a();
+impl NavigationContent {
+
+    /// 获取一级目录骨架
+    fn get_html_tree(&self) -> Html {
+        let child_li_a = self.get_child_li_a();
+        let html_vec = &self.navigation_content;
+        //主要目录树
+        html_vec.into_iter().map(|content| {
             let content_str = content.content.as_str();
             let child = &content.child;
             match content.html_type.as_str() {
@@ -54,30 +55,30 @@ fn get_html_tree() -> fn(&Vec<HtmlByTree>) -> Html {
             }
         }).collect::<Html>()
     }
-}
 
-/// 获取便利子目录的闭包函数
-/// ```
-fn get_child_li_a() -> fn(&Vec<HtmlByTree>) -> Html {
-    //便利子目录
-    move |child: &Vec<HtmlByTree>| -> Html {
-        child.into_iter().map(|content| {
-            let content_str = content.content.as_str();
-            match content.html_type.as_str() {
-                "li a" => {
-                    html! {
+    /// 获取便利子目录的闭包函数
+    fn get_child_li_a(&self) -> fn(&Vec<HtmlByTree>) -> Html {
+        //便利子目录
+        move |child: &Vec<HtmlByTree>| -> Html {
+            child.into_iter().map(|content| {
+                let content_str = content.content.as_str();
+                match content.html_type.as_str() {
+                    "li a" => {
+                        html! {
                             <li>
                                 <a>
                                     {content_str}
                                 </a>
                             </li>
                         }
+                    }
+                    _ => { html! {} }
                 }
-                _ => { html! {} }
-            }
-        }).collect::<Html>()
+            }).collect::<Html>()
+        }
     }
 }
+
 
 impl Component for NavigationContent {
     type Message = Msg;
@@ -98,13 +99,10 @@ impl Component for NavigationContent {
     }
 
     fn view(&self) -> Html {
-        let html_tree_vec = &self.navigation_content;
-        let navigation_content = get_html_tree();
+        let navigation_content = self.get_html_tree();
         html! {
             <>
-                {
-                   navigation_content(html_tree_vec)
-                }
+                {navigation_content}
             </>
         }
     }
