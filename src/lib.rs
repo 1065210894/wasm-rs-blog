@@ -1,7 +1,6 @@
 #![feature(extern_types)]
 
 mod view;
-mod component;
 mod dto;
 mod util;
 

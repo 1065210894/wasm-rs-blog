@@ -20,16 +20,16 @@ impl Navigation {
     fn update_is_open(&mut self) {
         let is_open = self.props.is_open;
         self.props.is_open = !is_open;
+        let mut style = "";
         match self.props.is_open {
             true => {
-                let style = "animation-name: open;";
-                self.props.navigation_style = style.to_string();
+                style = "animation-name: open;";
             }
             false => {
-                let style = "animation-name: close;";
-                self.props.navigation_style = style.to_string();
+                style = "animation-name: close;";
             }
         }
+        self.props.navigation_style = style.to_string();
     }
 }
 

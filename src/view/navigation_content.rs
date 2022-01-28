@@ -1,6 +1,5 @@
 use yew::prelude::*;
 use yew::html;
-use crate::component::child_li_a::ChildLiA;
 use crate::dto::html_dto::{HtmlByTree};
 
 #[derive(Clone, PartialEq, Properties, std::default::Default)]
@@ -12,6 +11,72 @@ pub struct NavigationContent {
     link: ComponentLink<Self>,
     props: Props,
     navigation_content: Vec<HtmlByTree>,
+}
+
+/// 获取一级目录骨架（闭包函数）
+/// ```
+fn get_html_tree() -> fn(&Vec<HtmlByTree>) -> Html {
+    //主要目录树
+    move |html_tree_vec: &Vec<HtmlByTree>| -> Html {
+        html_tree_vec.into_iter().map(|content| {
+            let child_li_a = get_child_li_a();
+            let content_str = content.content.as_str();
+            let child = &content.child;
+            match content.html_type.as_str() {
+                "ul li a" => {
+                    html! {
+                        <ul>
+                            <li>
+                                <a>
+                                    {content_str}
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                }
+                "ul li" => {
+                    html! {
+                        <ul>
+                            <li>
+                                <a>
+                                    {content_str}
+                                </a>
+                            </li>
+                            <ul>
+                                {
+                                    child_li_a(child)
+                                }
+                            </ul>
+                        </ul>
+                    }
+                }
+                _ => { html! {} }
+            }
+        }).collect::<Html>()
+    }
+}
+
+/// 获取便利子目录的闭包函数
+/// ```
+fn get_child_li_a() -> fn(&Vec<HtmlByTree>) -> Html {
+    //便利子目录
+    move |child: &Vec<HtmlByTree>| -> Html {
+        child.into_iter().map(|content| {
+            let content_str = content.content.as_str();
+            match content.html_type.as_str() {
+                "li a" => {
+                    html! {
+                            <li>
+                                <a>
+                                    {content_str}
+                                </a>
+                            </li>
+                        }
+                }
+                _ => { html! {} }
+            }
+        }).collect::<Html>()
+    }
 }
 
 impl Component for NavigationContent {
@@ -33,38 +98,12 @@ impl Component for NavigationContent {
     }
 
     fn view(&self) -> Html {
-        let navigation_content = &self.navigation_content;
+        let html_tree_vec = &self.navigation_content;
+        let navigation_content = get_html_tree();
         html! {
             <>
                 {
-                   navigation_content.into_iter().map(|content| {
-                        match content.html_type.as_str() {
-                            "ul li a" => {
-                                html! {
-                                    <ul>
-                                        <li>
-                                            <a>
-                                                {content.content.as_str()}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                }
-                            }
-                            "ul li" => {
-                                html! {
-                                    <ul>
-                                        <li>
-                                            <a>
-                                                {content.content.as_str()}
-                                            </a>
-                                        </li>
-                                        <ChildLiA child_html_tree={&content.child} />
-                                    </ul>
-                                }
-                            }
-                            _ => { html! {} }
-                        }
-                    }).collect::<Html>()
+                   navigation_content(html_tree_vec)
                 }
             </>
         }

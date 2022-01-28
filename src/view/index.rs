@@ -42,15 +42,12 @@ impl Component for Index {
     }
 
     fn view(&self) -> Html {
-        let height_str = "height:";
-        let width_str = "width:";
         let style_end = "px;";
-
         let height = self.props.height.to_string();
         let width = self.props.width.to_string();
 
-        let style: String = height_str.to_string() + &height + style_end +
-            width_str + &width + style_end;
+        let style: String = "height:".to_string() + &height + style_end +
+            "width:" + &width + style_end;
         html! {
             <div class="index" style={style}>
                 <Navigation is_open={true} navigation_style={"".to_string()} />
