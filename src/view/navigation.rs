@@ -4,20 +4,20 @@ use crate::view::navigation_content::NavigationContent;
 #[derive(Clone, PartialEq, Properties, std::default::Default)]
 pub struct Props {
     pub is_open: bool,
-    pub navigation_style: String,
 }
 
 pub enum Msg {
     UpdateSwitch
 }
 
+static mut NAVIGATION_STYLE: String = String::new();
+
 pub struct Navigation {
-    link: ComponentLink<Self>,
     props: Props,
 }
 
 impl Navigation {
-    fn update_is_open(&mut self) {
+    unsafe fn update_is_open(&mut self) {
         let is_open = self.props.is_open;
         self.props.is_open = !is_open;
         let mut style = "";
@@ -29,7 +29,7 @@ impl Navigation {
                 style = "animation-name: close;";
             }
         }
-        self.props.navigation_style = style.to_string();
+        NAVIGATION_STYLE = style.to_string();
     }
 }
 
@@ -37,26 +37,22 @@ impl Component for Navigation {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        return Self { link, props };
+    fn create(_ctx: &Context<Self>) -> Self {
+        Self {props: _ctx.props().clone()}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> bool {
-        match _msg {
-            Msg::UpdateSwitch => {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        match msg {
+            Msg::UpdateSwitch => unsafe {
                 self.update_is_open();
             }
         }
         true
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool {
-        false
-    }
-
-    fn view(&self) -> Html {
-        let navigation_style = self.props.navigation_style.as_str();
-        let is_open_click = self.link.callback(|_| Msg::UpdateSwitch);
+    fn view(&self, _ctx: &Context<Self>) -> Html {
+        let navigation_style = unsafe {NAVIGATION_STYLE.as_str()};
+        let is_open_click = _ctx.link().callback(|_| Msg::UpdateSwitch);
         html! {
             <div id="navigation" style={navigation_style}>
                 <span class="navigation-content-span" >

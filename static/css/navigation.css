@@ -19,10 +19,13 @@
 #navigation {
     width: 15%;
     height: 100%;
+    top: 0px;
+    left: 0px;
     display: inline-flex;
-    position: relative;
+    position: fixed;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+    z-index: 10;
 }
 
 .navigation-content-span {
