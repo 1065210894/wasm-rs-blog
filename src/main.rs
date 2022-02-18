@@ -4,6 +4,7 @@ mod view;
 mod dto;
 mod util;
 mod router;
+mod api;
 
 use yew::prelude::*;
 

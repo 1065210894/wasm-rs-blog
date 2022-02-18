@@ -8,6 +8,8 @@ edition = "2018"
 yew-functional = { git = "https://github.com/yewstack/yew", rev = "f27e268" }
 yew = "0.19.3"
 yew-router = "0.16.0"
+reqwasm = "0.2"
+wasm-bindgen-futures = "0.4"
 
 [dependencies.serde]
 version = "1.0.133"
