@@ -55,7 +55,7 @@ fn switch(routes: &Route) -> Html {
     match routes {
         Route::Home =>
         html! {
-               <Home />
+            <Home />
         },
         Route::Secure => html! {
             <Secure />
