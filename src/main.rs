@@ -1,8 +1,7 @@
 mod view;
 mod util;
-
-use view::index::Index;
+mod router;
 
 fn main() {
-    yew::Renderer::<Index>::new().render();
+    yew::Renderer::<router::Main>::new().render();
 }
