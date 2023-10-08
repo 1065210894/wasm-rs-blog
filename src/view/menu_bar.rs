@@ -5,9 +5,9 @@ pub struct Props {}
 
 pub enum Msg {}
 
-pub struct Index {}
+pub struct MenuBar {}
 
-impl Component for Index {
+impl Component for MenuBar {
     type Message = Msg;
     type Properties = ();
 
@@ -17,14 +17,9 @@ impl Component for Index {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <>
-                <div class="uk-width-auto uk-height-viewport uk-overflow-auto">
-                    <div class="uk-height-viewport uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-                         data-src="./static/pic/index_background.jpg" uk-img="">
-                            <p>{"Welcome to 《Liudosen Blog》"}</p>
-                    </div>
-                </div>
-            </>
+            <div class="menu_bar">
+                
+            </div>
         }
     }
 }

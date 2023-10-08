@@ -13,6 +13,8 @@ yew-router 路由
 trunk 部署打包工具
 
 ## Start
+rustup target add wasm32-unknown-unknown
+
 cargo install trunk
 
 启动项目: 
