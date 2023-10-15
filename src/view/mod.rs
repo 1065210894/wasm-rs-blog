@@ -1,1 +1,3 @@
-pub mod menu_bar;
+pub use index::Index;
+
+mod index;

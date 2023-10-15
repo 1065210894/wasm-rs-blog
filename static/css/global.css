@@ -1,15 +1,25 @@
-.index {
-    background-image: url("./pic/index_background.jpg");
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    padding: 1%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@import "./view_css/index.css";
+
+* {
+    font-family: "Comic Sans MS", cursive;
+}
+
+html {
+    font-size: 62.5%;
 }
 
 .root {
-    position: relative;
+    width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./pic/故宫的猫.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.nes-container.with-title>.title {
+    margin: -1.9rem 0 1rem;
 }
