@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::{JsCast};
-use crate::util::web_sys_utils;
+use crate::util::web_sys_utils::*;
 
 #[derive(Clone, PartialEq, Properties, Default)]
 pub struct Props {}
@@ -25,9 +25,10 @@ impl Component for Index {
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
+        let height = get_window().inner_height().unwrap().as_f64().unwrap();
         html! {
             <div class="index">
-                <div class="header">
+                <div class="header" style={format!("height:{}px", height)}>
                     <div class="nes-container is-dark with-title">
                         <p class="title"> {"Welcome"} </p>
                         <div class="context">
@@ -48,13 +49,13 @@ impl Component for Index {
                 String::from("show-text"),
             );
 
-            let handler = web_sys_utils::get_window()
+            let handler = get_window()
                 .set_interval_with_callback_and_timeout_and_arguments_0(
                     self._write_fn.as_ref().unchecked_ref()
                     , 50,
                 ).unwrap();
 
-            web_sys_utils::get_storage()
+            get_storage()
                 .set(&self.interval_name, &format!("{}", handler)).unwrap();
         }
     }
@@ -66,12 +67,12 @@ impl Index {
         let interval_name = self.interval_name.clone();
         Closure::wrap(
             Box::new(move || {
-                let document = web_sys_utils::get_document();
+                let document = get_document();
                 let container = document.get_element_by_id(container_id.as_str()).unwrap();
 
                 let already_show_text = container.inner_html();
 
-                let storage = web_sys_utils::get_storage();
+                let storage = get_storage();
                 let option = storage.get(already_show_index_key).unwrap();
 
                 let index = match option {
@@ -88,7 +89,7 @@ impl Index {
 
                 if index >= need_show_text.len() {
                     if let Some(value) = storage.get(interval_name.as_str()).unwrap() {
-                        web_sys_utils::get_window().clear_interval_with_handle(value.parse::<i32>().unwrap());
+                        get_window().clear_interval_with_handle(value.parse::<i32>().unwrap());
                         storage.remove_item(already_show_index_key).unwrap();
                         storage.remove_item(interval_name.as_str()).unwrap();
                     }

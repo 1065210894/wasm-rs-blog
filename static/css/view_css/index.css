@@ -5,7 +5,6 @@
 
 .header {
     flex: auto;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,9 +24,11 @@
         opacity: 1;
     }
 }
+
 .index>.header>.nes-container>div{
     display: flex;
 }
+
 .index>.header>.nes-container>div>.cursor {
     -webkit-animation: hideToShow .7s infinite;
     animation: hideToShow .7s infinite;
