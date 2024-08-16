@@ -42,8 +42,7 @@ break;
 
 The project is a web project and requires the help of rust packages such as js_sys
 
-中文介绍:
-##项目介绍
+## 中文项目介绍
 描述：
 这是关于使用yew框架编写（web项目）博客平台的样例代码。
 
