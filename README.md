@@ -1,3 +1,48 @@
+## Project introduction
+Description:
+This is sample code for writing (web project) blogging platforms using the yew framework.
+
+Technology stack:
+
+rust-wasm
+
+yew framework
+
+yew-router Indicates the route
+
+Deploy the trunk packaging tool
+
+## How to Start
+rustup target add wasm32-unknown-unknown
+
+cargo install trunk
+
+Start-up project:
+trunk serve --open
+
+Prerequisite: Place index.html in the root directory
+
+Deploy other static resources, such as the css, according to the official documentation of the trunk
+
+Pack:
+trunk build
+
+More details about trunk can be found at https://trunkrs.dev/
+
+
+## Other
+Milliseconds after demo is executed
+
+let end_time = js_sys::Date::new_0().get_time() + 500 as f64;
+loop {
+if js_sys::Date::new_0().get_time() >= end_time {
+break;
+}
+}
+
+The project is a web project and requires the help of rust packages such as js_sys
+
+中文介绍:
 ##项目介绍
 描述：
 这是关于使用yew框架编写（web项目）博客平台的样例代码。
@@ -12,7 +57,7 @@ yew-router 路由
 
 trunk 部署打包工具
 
-## Start
+## How to Start
 rustup target add wasm32-unknown-unknown
 
 cargo install trunk
